@@ -22,6 +22,10 @@ export const theme = extendTheme({
       '800': '#1F2029',
       '900': '#181B23',
     }
+  },
+  fonts: {
+    heading: 'Roboto',
+    body: 'Roboto',
   }
 });
 
