@@ -28,7 +28,7 @@ export function Header() {
       { !isWideVersion && (
         <IconButton
           aria-label="Open navigation"
-          icon={<Icon as={RiMenuLine}/>}
+          icon={<Icon as={RiMenuLine} minHeight="40px" />}
           fontSize="24"
           variant="unstyled"
           onClick={onOpen}
