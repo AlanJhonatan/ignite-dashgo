@@ -1,6 +1,8 @@
 import { Button, Flex, Stack } from "@chakra-ui/react";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import * as yup from 'yup';
 import { Input } from "../components/Form/Input";
 
 type SingInFormData = {
@@ -8,11 +10,18 @@ type SingInFormData = {
   password: string;
 }
 
+const signInFormSchema = yup.object().shape({
+  email: yup.string().required().email(),
+  password: yup.string().required(),
+})
+
 export default function SignIn () {
-  const { register, handleSubmit, formState } = useForm();
+  const { register, handleSubmit, formState } = useForm({
+    resolver: yupResolver(signInFormSchema)
+  });
 
   useEffect(() => {
-    console.log(formState.isSubmitting);
+    console.log(formState.errors);
   }, [formState]);
   
   
@@ -44,6 +53,7 @@ export default function SignIn () {
             name="email"
             type="email"
             label="E-mail"
+            error={formState.errors.email}
             {...register('email')}
           />
           
@@ -51,6 +61,7 @@ export default function SignIn () {
             name="password"
             type="password"
             label="Password"
+            error={formState.errors.password}
             {...register('password')}
           />
         </Stack>
