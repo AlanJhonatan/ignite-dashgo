@@ -1,6 +1,6 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { SidebarDrawerProvider } from "../contexts/SidebarDrawerContext";
-import { makeServer } from "../services/miraje";
+import { makeServer } from "../services/mirage";
 import { theme } from "../styles/theme";
 
 if(process.env.NODE_ENV === 'development') {
