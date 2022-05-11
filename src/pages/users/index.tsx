@@ -12,11 +12,20 @@ export default function UserList() {
     const response = await fetch('http://localhost:3000/api/users')
     const data = await response.json();
 
-    return data;
+    const users = data.users.map((user) => {
+      return {
+        ...user,
+        createdAt: new Date(user.createdAt).toLocaleDateString('pt-BR', {
+          day: '2-digit',
+          month: 'long',
+          year: 'numeric',
+        })
+      }
+    });
+
+    return users;
   });
 
-  // console.log(Query)
-  
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true,
@@ -73,114 +82,37 @@ export default function UserList() {
               </Thead>
 
               <Tbody>
-                <Tr>
-                  <Td>
-                    <Checkbox colorScheme="pink" />
-                  </Td>
-                  <Td>
-                    <Box>
-                      <Text fontWeight="bold">Alan Jhonatan</Text>
-                      <Text fontWeight="bold" fontSize="sm" color="gray.300">
-                        alan.amorim.franca@gmail.com
-                      </Text>
-                    </Box>
-                  </Td>
-                  { isWideVersion && <Td>04 de Abril de 2022</Td>}
-                  <Td textAlign="end">
-                    {isWideVersion && (
-                      <Button
-                        as="a"
-                        size="sm"
-                        fontSize="sm"
-                        colorScheme="purple"
-                        leftIcon={<Icon as={RiPencilLine} fontSize="16"   />}
-                      >
-                        Editar
-                      </Button>
-                    )}
-                  </Td>
-                </Tr>
-                <Tr>
-                  <Td>
-                    <Checkbox colorScheme="pink" />
-                  </Td>
-                  <Td>
-                    <Box>
-                      <Text fontWeight="bold">Alan Jhonatan</Text>
-                      <Text fontWeight="bold" fontSize="sm" color="gray.300">
-                        alan.amorim.franca@gmail.com
-                      </Text>
-                    </Box>
-                  </Td>
-                  { isWideVersion && <Td>04 de Abril de 2022</Td>}
-                  <Td textAlign="end">
-                    {isWideVersion && (
-                      <Button
-                        as="a"
-                        size="sm"
-                        fontSize="sm"
-                        colorScheme="purple"
-                        leftIcon={<Icon as={RiPencilLine} fontSize="16"   />}
-                      >
-                        Editar
-                      </Button>
-                    )}
-                  </Td>
-                </Tr>
-                <Tr>
-                  <Td>
-                    <Checkbox colorScheme="pink" />
-                  </Td>
-                  <Td>
-                    <Box>
-                      <Text fontWeight="bold">Alan Jhonatan</Text>
-                      <Text fontWeight="bold" fontSize="sm" color="gray.300">
-                        alan.amorim.franca@gmail.com
-                      </Text>
-                    </Box>
-                  </Td>
-                  { isWideVersion && <Td>04 de Abril de 2022</Td>}
-                  <Td textAlign="end">
-                    {isWideVersion && (
-                      <Button
-                        as="a"
-                        size="sm"
-                        fontSize="sm"
-                        colorScheme="purple"
-                        leftIcon={<Icon as={RiPencilLine} fontSize="16"   />}
-                      >
-                        Editar
-                      </Button>
-                    )}
-                  </Td>
-                </Tr>
-                  <Tr>
-                    <Td>
-                      <Checkbox colorScheme="pink" />
-                    </Td>
-                    <Td>
-                      <Box>
-                        <Text fontWeight="bold">Alan Jhonatan</Text>
-                        <Text fontWeight="bold" fontSize="sm" color="gray.300">
-                          alan.amorim.franca@gmail.com
-                        </Text>
-                      </Box>
-                    </Td>
-                    { isWideVersion && <Td>04 de Abril de 2022</Td>}
-                    <Td textAlign="end">
-                      {isWideVersion && (
-                        <Button
-                          as="a"
-                          size="sm"
-                          fontSize="sm"
-                          colorScheme="purple"
-                          leftIcon={<Icon as={RiPencilLine} fontSize="16"   />}
-                        >
-                          Editar
-                        </Button>
-                      )}
-                    </Td>
-                  </Tr>
+                {data.map((user) => {
+                  return (
+                    <Tr key={user.id}>
+                      <Td>
+                        <Checkbox colorScheme="pink" />
+                      </Td>
+                      <Td>
+                        <Box>
+                          <Text fontWeight="bold">{user.name}</Text>
+                          <Text fontWeight="bold" fontSize="sm" color="gray.300">
+                            {user.email}
+                          </Text>
+                        </Box>
+                      </Td>
+                      { isWideVersion && <Td>{user.createdAt}</Td>}
+                      <Td textAlign="end">
+                        {isWideVersion && (
+                          <Button
+                            as="a"
+                            size="sm"
+                            fontSize="sm"
+                            colorScheme="purple"
+                            leftIcon={<Icon as={RiPencilLine} fontSize="16"   />}
+                          >
+                            Editar
+                          </Button>
+                        )}
+                      </Td>
+                    </Tr>
+                  )
+                })}
               </Tbody>
             </Table>
             <Pagination />
