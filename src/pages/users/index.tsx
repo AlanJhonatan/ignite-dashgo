@@ -9,10 +9,7 @@ import { useUsers } from "../../services/hooks/useUsers";
 export default function UserList() {
   const { data, isLoading, isFetching, error } = useUsers();
   
-  const isWideVersion = useBreakpointValue({
-    base: false,
-    lg: true,
-  });
+  const isWideVersion = useBreakpointValue({ base: false, lg: true });
 
   return (
     <Box>
@@ -97,7 +94,11 @@ export default function UserList() {
                 })}
               </Tbody>
             </Table>
-            <Pagination />
+            <Pagination
+              totalCountOfRegisters={200}
+              currentPage={5}
+              onPageChange={() => {}}
+            />
           </>
           )}
         </Box>
